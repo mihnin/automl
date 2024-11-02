@@ -1,0 +1,3 @@
+pandas
+autogluon.tabular
+streamlit
