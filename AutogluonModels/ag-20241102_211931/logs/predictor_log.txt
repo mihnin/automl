@@ -1,0 +1,199 @@
+Beginning AutoGluon training... Time limit = 600s
+AutoGluon will save models to 'AutogluonModels\ag-20241102_211931'
+=================== System Info ===================
+AutoGluon Version:  1.1.2b20241102
+Python Version:     3.12.4
+Operating System:   Windows
+Platform Machine:   AMD64
+Platform Version:   10.0.22631
+CPU Count:          22
+GPU Count:          0
+Memory Avail:       10.04 GB / 31.42 GB (31.9%)
+Disk Space Avail:   868.54 GB / 1879.97 GB (46.2%)
+===================================================
+Setting presets to: best_quality
+
+Fitting with arguments:
+{'enable_ensemble': True,
+ 'eval_metric': MASE,
+ 'hyperparameters': 'default',
+ 'known_covariates_names': [],
+ 'num_val_windows': 2,
+ 'prediction_length': 30,
+ 'quantile_levels': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+ 'random_seed': 123,
+ 'refit_every_n_windows': 1,
+ 'refit_full': False,
+ 'skip_model_selection': False,
+ 'target': 'Прогнозируемая потребность',
+ 'time_limit': 600,
+ 'verbosity': 2}
+
+	-0.7704	 = Validation score   (-root_mean_squared_error)
+	18.99s	 = Training   runtime
+	0.03s	 = Validation runtime
+Fitting model: LightGBM_BAG_L1 ... Training model for up to 397.3s of the 397.29s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.03%)
+	-0.7821	 = Validation score   (-root_mean_squared_error)
+	14.12s	 = Training   runtime
+	0.03s	 = Validation runtime
+Fitting model: RandomForestMSE_BAG_L1 ... Training model for up to 376.03s of the 376.02s of remaining time.
+	-0.7879	 = Validation score   (-root_mean_squared_error)
+	0.65s	 = Training   runtime
+	0.13s	 = Validation runtime
+Fitting model: CatBoost_BAG_L1 ... Training model for up to 375.19s of the 375.18s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.08%)
+	-0.7643	 = Validation score   (-root_mean_squared_error)
+	18.9s	 = Training   runtime
+	0.06s	 = Validation runtime
+Fitting model: LightGBM_BAG_L2 ... Training model for up to 12.06s of the 12.04s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.06%)
+	-0.7914	 = Validation score   (-root_mean_squared_error)
+	25.64s	 = Training   runtime
+	0.05s	 = Validation runtime
+Fitting model: WeightedEnsemble_L3 ... Training model for up to 137.09s of the -19.61s of remaining time.
+	Ensemble Weights: {'LightGBMXT_BAG_L2': 0.545, 'CatBoost_BAG_L1': 0.364, 'RandomForestMSE_BAG_L1': 0.091}
+	-0.7564	 = Validation score   (-root_mean_squared_error)
+	0.02s	 = Training   runtime
+	0.0s	 = Validation runtime
+AutoGluon training complete, total runtime = 156.9s ... Best model: WeightedEnsemble_L3 | Estimated inference throughput: 257.6 rows/s (54 batch size)
+TabularPredictor saved. To load, use: predictor = TabularPredictor.load("AutogluonModels\ag-20241102_211631")
+	-0.7687	 = Validation score   (-root_mean_squared_error)
+	76.84s	 = Training   runtime
+	0.03s	 = Validation runtime
+Fitting model: ExtraTreesMSE_BAG_L1 ... Training model for up to 290.22s of the 290.21s of remaining time.
+	-0.7864	 = Validation score   (-root_mean_squared_error)
+	0.56s	 = Training   runtime
+	0.09s	 = Validation runtime
+Fitting model: NeuralNetFastAI_BAG_L1 ... Training model for up to 289.53s of the 289.52s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.00%)
+	Warning: Exception caused NeuralNetFastAI_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		[36mray::_ray_fit()[39m (pid=48588, ip=127.0.0.1)
+ModuleNotFoundError: No module named 'fastai'
+
+During handling of the above exception, another exception occurred:
+
+[36mray::_ray_fit()[39m (pid=48588, ip=127.0.0.1)
+  File "python\ray\_raylet.pyx", line 1890, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 1991, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 1896, in ray._raylet.execute_task
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\core\models\ensemble\fold_fitting_strategy.py", line 404, in _ray_fit
+    fold_model.fit(X=X_fold, y=y_fold, X_val=X_val_fold, y_val=y_val_fold, time_limit=time_limit_fold, **resources, **kwargs_fold)
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\core\models\abstract\abstract_model.py", line 891, in fit
+    out = self._fit(**kwargs)
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\tabular\models\fastainn\tabular_nn_fastai.py", line 219, in _fit
+    try_import_fastai()
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\common\utils\try_import.py", line 139, in try_import_fastai
+    raise ImportError(
+ImportError: Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.1.2b20241102`.
+Fitting model: XGBoost_BAG_L1 ... Training model for up to 283.14s of the 283.13s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.07%)
+	-0.792	 = Validation score   (-root_mean_squared_error)
+	2.55s	 = Training   runtime
+	0.04s	 = Validation runtime
+Fitting model: NeuralNetTorch_BAG_L1 ... Training model for up to 275.11s of the 275.1s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.00%)
+	-0.7699	 = Validation score   (-root_mean_squared_error)
+	9.08s	 = Training   runtime
+	0.08s	 = Validation runtime
+Fitting model: LightGBMLarge_BAG_L1 ... Training model for up to 260.66s of the 260.65s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.13%)
+	-0.8064	 = Validation score   (-root_mean_squared_error)
+	5.14s	 = Training   runtime
+	0.03s	 = Validation runtime
+Fitting model: CatBoost_r177_BAG_L1 ... Training model for up to 249.55s of the 249.54s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.09%)
+	-0.7761	 = Validation score   (-root_mean_squared_error)
+	3.33s	 = Training   runtime
+	0.04s	 = Validation runtime
+Fitting model: NeuralNetTorch_r79_BAG_L1 ... Training model for up to 240.29s of the 240.28s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.00%)
+	-0.7599	 = Validation score   (-root_mean_squared_error)
+	14.08s	 = Training   runtime
+	0.07s	 = Validation runtime
+Fitting model: LightGBM_r131_BAG_L1 ... Training model for up to 220.69s of the 220.68s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.06%)
+	-0.7828	 = Validation score   (-root_mean_squared_error)
+	3.68s	 = Training   runtime
+	0.03s	 = Validation runtime
+Fitting model: NeuralNetFastAI_r191_BAG_L1 ... Training model for up to 211.22s of the 211.21s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.01%)
+	Warning: Exception caused NeuralNetFastAI_r191_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		[36mray::_ray_fit()[39m (pid=50228, ip=127.0.0.1)
+ModuleNotFoundError: No module named 'fastai'
+
+During handling of the above exception, another exception occurred:
+
+[36mray::_ray_fit()[39m (pid=50228, ip=127.0.0.1)
+  File "python\ray\_raylet.pyx", line 1890, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 1991, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 1896, in ray._raylet.execute_task
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\core\models\ensemble\fold_fitting_strategy.py", line 404, in _ray_fit
+    fold_model.fit(X=X_fold, y=y_fold, X_val=X_val_fold, y_val=y_val_fold, time_limit=time_limit_fold, **resources, **kwargs_fold)
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\core\models\abstract\abstract_model.py", line 891, in fit
+    out = self._fit(**kwargs)
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\tabular\models\fastainn\tabular_nn_fastai.py", line 219, in _fit
+    try_import_fastai()
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\common\utils\try_import.py", line 139, in try_import_fastai
+    raise ImportError(
+ImportError: Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.1.2b20241102`.
+Fitting model: CatBoost_r9_BAG_L1 ... Training model for up to 206.44s of the 206.43s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.32%)
+	-0.7738	 = Validation score   (-root_mean_squared_error)
+	73.81s	 = Training   runtime
+	0.03s	 = Validation runtime
+Fitting model: LightGBM_r96_BAG_L1 ... Training model for up to 125.62s of the 125.61s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.02%)
+	-0.7711	 = Validation score   (-root_mean_squared_error)
+	18.85s	 = Training   runtime
+	0.04s	 = Validation runtime
+Fitting model: NeuralNetTorch_r22_BAG_L1 ... Training model for up to 102.01s of the 102.0s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.00%)
+	-0.7543	 = Validation score   (-root_mean_squared_error)
+	15.5s	 = Training   runtime
+	0.07s	 = Validation runtime
+Fitting model: XGBoost_r33_BAG_L1 ... Training model for up to 81.84s of the 81.83s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.64%)
+	-0.7935	 = Validation score   (-root_mean_squared_error)
+	6.6s	 = Training   runtime
+	0.05s	 = Validation runtime
+Fitting model: ExtraTrees_r42_BAG_L1 ... Training model for up to 70.5s of the 70.49s of remaining time.
+	-0.782	 = Validation score   (-root_mean_squared_error)
+	0.56s	 = Training   runtime
+	0.08s	 = Validation runtime
+Fitting model: CatBoost_r137_BAG_L1 ... Training model for up to 69.81s of the 69.8s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.02%)
+	-0.763	 = Validation score   (-root_mean_squared_error)
+	57.73s	 = Training   runtime
+	0.02s	 = Validation runtime
+Fitting model: NeuralNetFastAI_r102_BAG_L1 ... Training model for up to 7.29s of the 7.28s of remaining time.
+	Fitting 8 child models (S1F1 - S1F8) | Fitting with ParallelLocalFoldFittingStrategy (8 workers, per: cpus=2, gpus=0, memory=0.01%)
+	Warning: Exception caused NeuralNetFastAI_r102_BAG_L1 to fail during training (ImportError)... Skipping this model.
+		[36mray::_ray_fit()[39m (pid=42624, ip=127.0.0.1)
+ModuleNotFoundError: No module named 'fastai'
+
+During handling of the above exception, another exception occurred:
+
+[36mray::_ray_fit()[39m (pid=42624, ip=127.0.0.1)
+  File "python\ray\_raylet.pyx", line 1890, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 1991, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 1896, in ray._raylet.execute_task
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\core\models\ensemble\fold_fitting_strategy.py", line 404, in _ray_fit
+    fold_model.fit(X=X_fold, y=y_fold, X_val=X_val_fold, y_val=y_val_fold, time_limit=time_limit_fold, **resources, **kwargs_fold)
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\core\models\abstract\abstract_model.py", line 891, in fit
+    out = self._fit(**kwargs)
+          ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\tabular\models\fastainn\tabular_nn_fastai.py", line 219, in _fit
+    try_import_fastai()
+  File "C:\Users\Mih10\anaconda3\Lib\site-packages\autogluon\common\utils\try_import.py", line 139, in try_import_fastai
+    raise ImportError(
+ImportError: Import fastai failed. A quick tip is to install via `pip install autogluon.tabular[fastai]==1.1.2b20241102`.
+Fitting model: WeightedEnsemble_L2 ... Training model for up to 360.0s of the 2.14s of remaining time.
+	Ensemble Weights: {'NeuralNetTorch_r22_BAG_L1': 0.56, 'CatBoost_r137_BAG_L1': 0.24, 'XGBoost_BAG_L1': 0.16, 'KNeighborsDist_BAG_L1': 0.04}
+	-0.7378	 = Validation score   (-root_mean_squared_error)
+	0.02s	 = Training   runtime
+	0.0s	 = Validation runtime
+AutoGluon training complete, total runtime = 422.3s ... Best model: WeightedEnsemble_L2 | Estimated inference throughput: 378.7 rows/s (54 batch size)
+TabularPredictor saved. To load, use: predictor = TabularPredictor.load("AutogluonModels\ag-20241102_211609")

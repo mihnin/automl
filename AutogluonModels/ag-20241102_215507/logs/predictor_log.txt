@@ -1,0 +1,61 @@
+Beginning AutoGluon training... Time limit = 1931s
+AutoGluon will save models to 'AutogluonModels\ag-20241102_215507'
+=================== System Info ===================
+AutoGluon Version:  1.1.2b20241102
+Python Version:     3.12.4
+Operating System:   Windows
+Platform Machine:   AMD64
+Platform Version:   10.0.22631
+CPU Count:          22
+GPU Count:          0
+Memory Avail:       4.65 GB / 31.42 GB (14.8%)
+Disk Space Avail:   866.68 GB / 1879.97 GB (46.1%)
+===================================================
+Setting presets to: medium_quality
+
+Fitting with arguments:
+{'enable_ensemble': True,
+ 'eval_metric': MASE,
+ 'freq': 'D',
+ 'hyperparameters': {'models': ['NaiveModel',
+                                'SeasonalNaiveModel',
+                                'AverageModel',
+                                'SeasonalAverageModel',
+                                'ZeroModel',
+                                'ETSModel',
+                                'AutoARIMAModel',
+                                'AutoETSModel',
+                                'AutoCESModel',
+                                'ThetaModel',
+                                'ADIDAModel',
+                                'CrostonClassicModel',
+                                'CrostonOptimizedModel',
+                                'CrostonSBAModel',
+                                'IMAPAModel',
+                                'NPTSModel',
+                                'DeepARModel',
+                                'DLinearModel',
+                                'PatchTSTModel',
+                                'SimpleFeedForwardModel',
+                                'TemporalFusionTransformerModel',
+                                'TiDEModel',
+                                'WaveNetModel',
+                                'DirectTabularModel',
+                                'RecursiveTabularModel',
+                                'ChronosModel']},
+ 'known_covariates_names': [],
+ 'num_val_windows': 1,
+ 'prediction_length': 1,
+ 'quantile_levels': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+ 'random_seed': 123,
+ 'refit_every_n_windows': 1,
+ 'refit_full': False,
+ 'skip_model_selection': False,
+ 'target': 'Прогнозируемая потребность',
+ 'time_limit': 1931,
+ 'verbosity': 2}
+
+train_data with frequency 'None' has been resampled to frequency 'D'.
+Provided train_data has 2899 rows, 2899 time series. Median time series length is 1 (min=1, max=1). 
+	Removing 2899 short time series from train_data. Only series with length >= 6 will be used for training.
+	After filtering, train_data has 0 rows, 0 time series. Median time series length is nan (min=nan, max=nan). 

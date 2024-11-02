@@ -17,3 +17,6 @@ def save_results_to_csv(predictions, test_data, target_column, file_path):
         'Относительное отклонение': abs((test_data[target_column] - predictions) / test_data[target_column])
     })
     results_table.to_csv(file_path, index=False)
+
+def save_preprocessed_data(data, file_path):
+    data.to_csv(file_path, index=False)
