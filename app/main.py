@@ -2,28 +2,16 @@ import streamlit as st
 import pandas as pd
 from autogluon.tabular import TabularPredictor
 import os
+import sys
 
-# Загрузка данных
-def load_data(file_path):
-    data = pd.read_csv(file_path)
-    return data
+# Добавляем текущую директорию в путь поиска модулей
+sys.path.append(os.path.dirname(__file__))
 
-# Выполнение прогнозирования
-def perform_prediction(data, target_column):
-    predictor = TabularPredictor(label=target_column).fit(data)
-    predictions = predictor.predict(data)
-    return predictions, predictor
+from data_processing import load_data, split_data
+from model_training import train_model, predict
+from visualization import visualize_results, visualize_model_info
+from utils import save_results_to_excel, save_results_to_csv
 
-# Визуализация результатов
-def visualize_results(predictions, target_column):
-    st.write(f"Прогнозы для столбца '{target_column}':")
-    st.write(predictions)
-
-# Сохранение результатов в Excel
-def save_results_to_excel(predictions, file_path):
-    predictions.to_excel(file_path, index=False)
-
-# Основное приложение Streamlit
 def main():
     st.title("AutoGluon App")
 
@@ -37,31 +25,29 @@ def main():
         # Выбор целевого столбца
         target_column = st.selectbox("Выберите целевой столбец", data.columns)
 
-        # Выбор времени прогнозирования
-        prediction_time = st.slider("Выберите время прогнозирования (секунды)", 1, 600, 60)
+        # Выбор размера тестовой выборки
+        test_size = st.slider("Выберите размер тестовой выборки (%)", 0.0, 1.0, 0.2)
+
+        # Выбор периода прогноза
+        forecast_period = st.date_input("Выберите период прогноза")
 
         if st.button("Выполнить прогнозирование"):
             with st.spinner("Прогнозирование..."):
-                predictions, predictor = perform_prediction(data, target_column)
-                visualize_results(predictions, target_column)
-
-                # Таблица с результатами
-                st.write("Таблица с результатами:")
-                st.write(predictions)
-
-                # Графики
-                st.write("Графики:")
-                st.line_chart(predictions)
+                train_data, test_data = split_data(data, test_size)
+                predictor = train_model(train_data, target_column)
+                predictions = predict(predictor, test_data)
+                visualize_results(predictions, test_data, target_column)
+                visualize_model_info(predictor, test_data)
 
                 # Сохранение результатов в Excel
                 if st.button("Сохранить результаты в Excel"):
-                    save_results_to_excel(predictions, "predictions.xlsx")
+                    save_results_to_excel(predictions, test_data, target_column, "predictions.xlsx")
                     st.success("Результаты сохранены в predictions.xlsx")
 
-                # Таблица с результатами, где видно, какая модель лучше справилась
-                st.write("Таблица с результатами, где видно, какая модель лучше справилась:")
-                leaderboard = predictor.leaderboard(data)
-                st.write(leaderboard)
+                # Сохранение результатов в CSV
+                if st.button("Сохранить результаты в CSV"):
+                    save_results_to_csv(predictions, test_data, target_column, "predictions.csv")
+                    st.success("Результаты сохранены в predictions.csv")
 
 if __name__ == "__main__":
     main()
